@@ -1,4 +1,5 @@
 import { Crosshair, Map, FileText, Settings, Eye } from "lucide-react";
+import { motion } from "framer-motion";
 
 type Screen = "scan" | "map" | "log" | "admin";
 
@@ -18,30 +19,37 @@ const navItems: { id: Screen; label: string; icon: typeof Crosshair }[] = [
 
 const TacticalNav = ({ active, onChange, onThermalCycle, thermalMode }: TacticalNavProps) => {
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-14 bg-background/90 border-t border-primary/20 flex items-center justify-around px-2 z-50">
+    <div className="absolute bottom-0 left-0 right-0 h-16 bg-background/95 border-t border-primary/20 flex items-center justify-around px-1 z-50 backdrop-blur-sm">
       {navItems.map(({ id, label, icon: Icon }) => (
         <button
           key={id}
           onClick={() => onChange(id)}
-          className={`flex flex-col items-center gap-0.5 px-3 py-1 font-mono text-[9px] tracking-widest transition-none ${
+          className={`relative flex flex-col items-center gap-1 px-4 py-2 font-mono text-[10px] tracking-widest transition-colors min-w-[56px] ${
             active === id
-              ? "text-primary glow-green"
-              : "text-muted-foreground hover:text-primary"
+              ? "text-primary"
+              : "text-muted-foreground hover:text-primary/70"
           }`}
         >
-          <Icon size={16} strokeWidth={1.5} />
+          {active === id && (
+            <motion.div
+              layoutId="nav-indicator"
+              className="absolute -top-px left-2 right-2 h-px bg-primary"
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            />
+          )}
+          <Icon size={20} strokeWidth={1.5} />
           <span>{label}</span>
         </button>
       ))}
       <button
         onClick={onThermalCycle}
-        className={`flex flex-col items-center gap-0.5 px-3 py-1 font-mono text-[9px] tracking-widest transition-none ${
+        className={`flex flex-col items-center gap-1 px-4 py-2 font-mono text-[10px] tracking-widest transition-colors min-w-[56px] ${
           thermalMode !== "off"
             ? "text-tactical-amber"
-            : "text-muted-foreground hover:text-primary"
+            : "text-muted-foreground hover:text-primary/70"
         }`}
       >
-        <Eye size={16} strokeWidth={1.5} />
+        <Eye size={20} strokeWidth={1.5} />
         <span>THERMAL</span>
       </button>
     </div>
