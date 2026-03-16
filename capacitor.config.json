@@ -1,0 +1,9 @@
+{
+  "appId": "app.lovable.b9e61336004c4c9683dec9dda8853483",
+  "appName": "Tactical Sentinel",
+  "webDir": "dist",
+  "server": {
+    "url": "https://b9e61336-004c-4c96-83de-c9dda8853483.lovableproject.com?forceHideBadge=true",
+    "cleartext": true
+  }
+}
